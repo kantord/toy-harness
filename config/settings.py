@@ -75,11 +75,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/6.1/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 #
 # Backed by Dolt (https://www.dolthub.com/), a version-controlled database
 # that speaks the MySQL wire protocol, so Django's stock mysql backend talks
 # to it directly (with pymysql standing in for mysqlclient, see config/__init__.py).
+# Pinned to Django 5.2: Django 6 requires MySQL 8.4+, and Dolt currently
+# reports itself as MySQL 8.0.31 (see doltgresql evaluation notes in README
+# for why we're not on Doltgres instead — a live bug in its multi-array
+# UNNEST support breaks Django's bulk_create).
 # For local dev, run `dolt sql-server` from dolt_data/toy_harness/.
 
 DATABASES = {

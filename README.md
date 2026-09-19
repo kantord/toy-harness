@@ -11,6 +11,10 @@ rewrite of toylang's harness in Django
 - pytest + pytest-django for testing
 - Django admin auto-registers every model from every app (see `core/apps.py`) — no per-model admin boilerplate needed
 
+### Why not Doltgres?
+
+[Doltgres](https://www.doltgres.com/) (Postgres-wire-compatible Dolt) was evaluated as an alternative — it reports itself as PostgreSQL 15.5, clearing Django 6.1's version floor. But as of Doltgres v1.3.3 (2026-09-15), its multi-array `UNNEST` support is broken ([doltgresql#3366](https://github.com/dolthub/doltgresql/issues/3366)), which breaks Django 5.2+'s `bulk_create` — including the built-in permission creation that runs on every `migrate`. A fix is in review ([doltgresql#3401](https://github.com/dolthub/doltgresql/pull/3401)) but unreleased. Worth revisiting once that ships.
+
 ## Setup
 
 ```bash
