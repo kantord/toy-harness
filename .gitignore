@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+dolt_data/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
