@@ -2,7 +2,7 @@ from django.db import models
 
 
 class ModelProvider(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
@@ -12,19 +12,26 @@ class Model(models.Model):
     name = models.CharField(max_length=255)
     provider = models.ForeignKey(ModelProvider, on_delete=models.CASCADE)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['provider', 'name'], name='unique_model_name_per_provider'
+            ),
+        ]
+
     def __str__(self):
         return self.name
 
 
 class WorkloadRunner(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
 
 
 class Workload(models.Model):
-    enw = models.CharField(max_length=255, help_text='Enwiro environment name')
+    enw = models.CharField(max_length=255, unique=True, help_text='Enwiro environment name')
     workload_runner = models.ForeignKey(WorkloadRunner, on_delete=models.CASCADE)
     model = models.ForeignKey(Model, on_delete=models.CASCADE)
 
